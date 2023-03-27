@@ -1,3 +1,14 @@
 * {
   font-family: 'Ubuntu', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgb(174,185,238);
+  background: radial-gradient(circle, rgba(174,185,238,1) 0%, rgba(251,255,255,1) 100%);
 }
