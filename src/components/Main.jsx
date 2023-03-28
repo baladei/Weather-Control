@@ -2,14 +2,33 @@ import { useState } from "react";
 import "../styles/main.css"
 
 export const Main = () => {
+    const [city, setCity] = useState("");
 
-    const [city, setCity] = useState();
+    const API_KEY = "6b0d0377b789916d028701b16528b38b"
+
+    const cityElement = document.querySelector("#city");
+    const tempElement = document.querySelector("#temperature span");
+    const descripElement = document.querySelector("#description");
+    const weatherIconElement = document.querySelector("#weather-icon");
+    const countryElement = document.querySelector("#country");
+    const umidityElement = document.querySelector("#umidity span");
+    const windElement = document.querySelector("#wind span");
+
+    const getWeatherData = async (city) => {
+        const apiWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}&lang=pt_br`
+
+        const res = await fetch(apiWeather);
+        const data = await res.json();
+
+        console.log(data);
+    
+    }
 
     function searchBtn (e) {
         e.preventDefault();
 
         setCity(e.target.value)
-        console.log(city)
+        getWeatherData(city)
     }
 
 
@@ -17,8 +36,8 @@ export const Main = () => {
     <div className='container'>
         <h3>Confira o clima de alguma cidade:</h3>
         <div className="input-container">
-            <input type="text" placeholder='Digite o nome da cidade' id='city' />
-            <button onClick={searchBtn} id="search" value={city}>
+            <input type="text" placeholder='Digite o nome da cidade' id='city' onChange={(e) => setCity(e.target.value)} />
+            <button onClick={searchBtn} id="search">
                 <i className="fa-solid fa-magnifying-glass"></i>
             </button>
         </div>
