@@ -2,7 +2,8 @@ import { useState } from "react";
 import "../styles/main.css"
 
 export const Main = () => {
-    const [city, setCity] = useState("");
+    const [city, setCity] = useState();
+    const [testeCity, setTesteCity] = useState();
 
     const API_KEY = "6b0d0377b789916d028701b16528b38b"
 
@@ -14,21 +15,25 @@ export const Main = () => {
     const umidityElement = document.querySelector("#umidity span");
     const windElement = document.querySelector("#wind span");
 
-    const getWeatherData = async (city) => {
+    async function getWeatherData () {
         const apiWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}&lang=pt_br`
 
         const res = await fetch(apiWeather);
         const data = await res.json();
 
-        console.log(data);
-    
+        console.log(data)
+        console.log(data.name)
+        console.log(data.wind.deg)
+
+        return data;
+
     }
 
     function searchBtn (e) {
         e.preventDefault();
 
-        setCity(e.target.value)
-        getWeatherData(city)
+        getWeatherData()
+        setTesteCity(city)
     }
 
 
@@ -43,7 +48,7 @@ export const Main = () => {
         </div>
         <div className="weather-data">
             <h2><i className="fa-solid fa-location-dot"></i>
-            <span id="city">São Paulo</span>
+            <span id="city">{testeCity}</span>
             <img src="https://www.countryflagicons.com/SHINY/64/BR.png" alt="Bandeira" id="country" />
             </h2>
             <p id="temperature"><span>38</span>&deg;C</p>
